@@ -12,7 +12,7 @@ def kreator_planszy(rozmiar_planszy):
 
 
 def wygrana(gracz):
-    print(f"Gracz {gracz} wygrywa!")
+    print(f"\nGracz {gracz} wygrywa!")
 
 
 def sprawdzanie_wygranej(rozmiar_planszy_uzytkownika, gracz):
@@ -25,7 +25,6 @@ def sprawdzanie_wygranej(rozmiar_planszy_uzytkownika, gracz):
                 licznik += 1
             if licznik == 3:
                 warunek_wygranej = 1
-                wygrana(gracz)
                 break
 
     # poziomo
@@ -36,11 +35,10 @@ def sprawdzanie_wygranej(rozmiar_planszy_uzytkownika, gracz):
                 licznik += 1
             if licznik == 3:
                 warunek_wygranej = 1
-                wygrana(gracz)
                 break
 
-    if plansza[0][0] == plansza[1][1] == plansza[2][2] or plansza[0][2] == plansza[1][1] == plansza[2][0]:
-        wygrana(gracz)
+    if plansza[0][0] == plansza[1][1] == plansza[2][2] != ' ' or plansza[0][2] == plansza[1][1] == plansza[2][0] != ' ':
+        warunek_wygranej = 1
 
     return warunek_wygranej
 
@@ -50,9 +48,9 @@ def gra():
     print("Gra w kółko i krzyżyk")
     warunek_wygranej = 0
     gracz = 'X'
-    while warunek_wygranej < 1:
+    while warunek_wygranej == 0:
         kreator_planszy(rozmiar_planszy_uzytkownika)
-        wejscie = [int(i) for i in input(f"{gracz} podaj koordynaty: ")]
+        wejscie = [int(i) for i in input(f"{gracz} podaj koordynaty (xy): ")]
         if plansza[wejscie[0] - 1][wejscie[1] - 1] != ' ':
             print("Wybrałeś zajęte pole!")
             continue
@@ -64,13 +62,6 @@ def gra():
             plansza[wejscie[0] - 1][wejscie[1] - 1] = 'O'
             warunek_wygranej = sprawdzanie_wygranej(rozmiar_planszy_uzytkownika, gracz)
             gracz = 'X'
-
-
+    kreator_planszy(rozmiar_planszy_uzytkownika)
+    wygrana(gracz)
 gra()
-
-""" RIPZONE
-if plansza[i][j] == plansza[i + 1][j] and plansza[i][j] == plansza[i + 2][j]:
-    wygrana(gracz)
-if plansza[i][j] == plansza[i][j + 1] and plansza[i][j] == plansza[i][j + 2]:
-    wygrana(gracz)
-"""
